@@ -1,6 +1,7 @@
 package tests;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import data_providers.DataProviderUser;
 import dto.UserDto;
 import helpers.TestNGListener;
 import manager.ApplicationManager;
@@ -22,6 +23,24 @@ public class LoginTests extends ApplicationManager {
                 .email("alexmedqwerty2@gmail.com")
                 .password("376Vtl150dtl!")
                 .build();
+        logger.info("start method --> " + method.getName() + " with data: " + user);
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLogin();
+        new LoginPage(getDriver()).typeLoginForm(user);
+        Assert.assertTrue(new BoardsPage(getDriver()).validateUrlBoards());
+    }
+
+    @Test(dataProvider = "loginTestDataProvider", dataProviderClass = DataProviderUser.class)
+    public void loginPositiveTest_withDP(UserDto user, Method method) {
+        logger.info("start method --> " + method.getName() + " with data: " + user);
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLogin();
+        new LoginPage(getDriver()).typeLoginForm(user);
+        Assert.assertTrue(new BoardsPage(getDriver()).validateUrlBoards());
+    }
+
+    @Test(dataProvider = "loginTestDataProviderFromCswFile", dataProviderClass = DataProviderUser.class)
+    public void loginPositiveTest_withDPFromCsw(UserDto user, Method method) {
         logger.info("start method --> " + method.getName() + " with data: " + user);
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();

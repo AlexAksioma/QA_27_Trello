@@ -40,7 +40,7 @@ public class ApplicationManager {
     @AfterMethod
     public void tearDown(){
         //logger.info("Stop testing");
-        if(driver != null)
-            driver.quit();
+//        if(driver != null)
+//            driver.quit();
     }
 }
