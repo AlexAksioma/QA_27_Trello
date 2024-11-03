@@ -2,6 +2,9 @@ package tests;
 
 import dto.BoardDto;
 import dto.UserDto;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
+import io.qameta.allure.Owner;
 import manager.ApplicationManager;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -15,7 +18,7 @@ import java.util.Random;
 
 public class BoardsTests extends ApplicationManager {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void loginBeforeAddBoard(Method method) {
         UserDto user = UserDto.builder()
                 .email("alexmedqwerty2@gmail.com")
@@ -27,11 +30,21 @@ public class BoardsTests extends ApplicationManager {
         new LoginPage(getDriver()).typeLoginForm(user);
     }
 
-
-    @Test
+    @Description(" add new board positive test")
+    @Owner("QA Alex")
+    @Test(groups = {"smoke", "positive"})
     public void addNewBoardPositiveTest() {
+        Allure.step("start new board test ");
         new BoardsPage(getDriver()).createNewBoard(BoardDto.builder()
                 .boardName("name_board" + new Random().nextInt(1000))
+                .build());
+        Allure.step("stop new board test");
+    }
+
+    @Test(groups = {"regres", "negative"})
+    public void addNewBoardNegativeTest_emptyBoardName() {
+        new BoardsPage(getDriver()).createNewBoard(BoardDto.builder()
+                .boardName("")
                 .build());
     }
 }

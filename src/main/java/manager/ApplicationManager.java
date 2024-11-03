@@ -23,7 +23,7 @@ public class ApplicationManager {
         return driver;
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
         //logger.info("Start testing");
         ChromeOptions chromeOptions = new ChromeOptions().addArguments("--lang=en");
@@ -37,7 +37,7 @@ public class ApplicationManager {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(){
         //logger.info("Stop testing");
 //        if(driver != null)
