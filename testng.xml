@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="login" >
+    <test name="login tests">
+        <groups>
+            <run>
+                <exclude name="regres"/>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginTests"/>
+            <class name="tests.BoardsTests"/>
+        </classes>
+    </test>
+</suite>
